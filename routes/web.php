@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+//frontend route
+Route::get('/',[\App\Http\Controllers\Frontend\HomeController::class,'index'])->name('frontend.home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
@@ -37,8 +35,9 @@ Route:: get('/{id}/edit',[\App\Http\Controllers\backend\TagController::class,'ed
 //route to update data
 Route:: put('/{id}',[\App\Http\Controllers\backend\TagController::class,'update'])->name('update');
 });
-Route::prefix('backend/category')->name('backend.category.')->group(function(){
+Route::post('category/get_subcategory',[\App\Http\Controllers\backend\CategoryController::class,'getSubcategory'])->name('backend.category.get_subcategory');
 
+Route::prefix('backend/category')->name('backend.category.')->group(function(){
 // Category
 Route:: get('/trash',[\App\Http\Controllers\backend\CategoryController::class,'trash'])->name('trash');
 Route:: post('/restore/{id} ',[\App\Http\Controllers\backend\CategoryController::class,'restore'])->name('restore');
@@ -51,7 +50,7 @@ Route:: delete('/{id}',[\App\Http\Controllers\backend\CategoryController::class,
 //route to edit data
 Route:: get('/{id}/edit',[\App\Http\Controllers\backend\CategoryController::class,'edit'])->name('edit');
 //route to update data
-Route:: put('ag/{id}',[\App\Http\Controllers\backend\CategoryController::class,'update'])->name('update');
+Route:: put('/{id}',[\App\Http\Controllers\backend\CategoryController::class,'update'])->name('update');
 });
 Route::prefix('backend/brand')->name('backend.brand.')->group(function(){
 
@@ -71,22 +70,10 @@ Route:: get('/{id}/edit',[\App\Http\Controllers\backend\BrandController::class,'
 Route:: put('/{id}',[\App\Http\Controllers\backend\BrandController::class,'update'])->name('update');
 });
 
-//product
-Route::get('backend/product/create',[\App\Http\Controllers\Backend\ProductController::class,'create'])->name('backend.product.create');
-Route:: post('backend/product',[\App\Http\Controllers\Backend\ProductController::class,'store'])->name('backend.product.store');
-Route::get('backend/product',[\App\Http\Controllers\Backend\ProductController::class,'index'])->name('backend.product.index');
-Route:: get('backend/product/{id}',[\App\Http\Controllers\backend\ProductController::class,'show'])->name('backend.product.show');
-Route:: delete('backend/product/{id}',[\App\Http\Controllers\backend\ProductController::class,'destroy'])->name('backend.product.destroy');
-//route to edit data
-Route:: get('backend/product/{id}/edit',[\App\Http\Controllers\backend\ProductController::class,'edit'])->name('backend.product.edit');
-//route to update data
-Route:: put('backend/product/{id}',[\App\Http\Controllers\backend\ProductController::class,'update'])->name('backend.product.update');
 
 //Sub Category
 
 Route::prefix('backend/subcategory')->name('backend.subcategory.')->group(function(){
-
-    
     Route:: get('/trash',[\App\Http\Controllers\backend\SubcategoryController::class,'trash'])->name('trash');
     Route:: post('/restore/{id} ',[\App\Http\Controllers\backend\SubcategoryController::class,'restore'])->name('restore');
     Route:: delete ('/force_delete/{id}',[\App\Http\Controllers\backend\SubcategoryController::class,'permanentDelete'])->name('force_delete');
@@ -104,7 +91,6 @@ Route::prefix('backend/subcategory')->name('backend.subcategory.')->group(functi
 
 //options
 Route::prefix('backend/option')->name('backend.option.')->group(function(){
-
 Route:: get('/trash',[\App\Http\Controllers\backend\OptionController::class,'trash'])->name('trash');
 Route:: post('/restore/{id} ',[\App\Http\Controllers\backend\OptionController::class,'restore'])->name('restore');
 Route:: delete ('/force_delete/{id}',[\App\Http\Controllers\backend\OptionController::class,'permanentDelete'])->name('force_delete');
@@ -119,3 +105,18 @@ Route:: get('/{id}/edit',[\App\Http\Controllers\backend\OptionController::class,
 Route:: put('/{id}',[\App\Http\Controllers\backend\OptionController::class,'update'])->name('update');
 });
 
+Route::prefix('backend/product')->name('backend.product.')->group(function(){ 
+    //brand
+    Route:: get('/trash',[\App\Http\Controllers\backend\ProductController::class,'trash'])->name('trash');
+    Route:: post('/restore/{id} ',[\App\Http\Controllers\backend\ProductController::class,'restore'])->name('restore');
+    Route:: delete ('/force_delete/{id}',[\App\Http\Controllers\backend\ProductController::class,'permanentDelete'])->name('force_delete'); 
+    Route::get('/create',[\App\Http\Controllers\Backend\ProductController::class,'create'])->name('create');
+    Route:: post('',[\App\Http\Controllers\Backend\ProductController::class,'store'])->name('store');
+    Route::get('',[\App\Http\Controllers\Backend\ProductController::class,'index'])->name('index');
+    Route:: get('/{id}',[\App\Http\Controllers\backend\ProductController::class,'show'])->name('show');
+    Route:: delete('/{id}',[\App\Http\Controllers\backend\ProductController::class,'destroy'])->name('destroy');
+    //route to edit data
+    Route:: get('/{id}/edit',[\App\Http\Controllers\backend\ProductController::class,'edit'])->name('edit');
+    //route to update data
+    Route:: put('/{id}',[\App\Http\Controllers\backend\ProductController::class,'update'])->name('update');
+    });

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <title> @yield('title') | Ecommerce Admin</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -271,6 +272,9 @@
 <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('assets/dist/js/demo.js')}}"></script>
+    {{-- CKNeditor --}}
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/classic/ckeditor.js"></script>
+    @yield('scripts')
 @yield('js')
 </body>
 </html>

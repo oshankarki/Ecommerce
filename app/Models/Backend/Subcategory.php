@@ -5,6 +5,7 @@ namespace App\Models\Backend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Backend\Category;
 
 use Illuminate\Database\Eloquent\softDeletes;
 

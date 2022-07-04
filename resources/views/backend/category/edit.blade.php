@@ -38,7 +38,7 @@
                     </button>
             </div>
         </div>
-        <form action="{{route($base_route.'store')}}" method="post">
+        <form action="{{route($base_route.'update',$data['record']->id)}}" method="post">
         <input type="hidden" name="_method" value="PUT">
             @csrf
             <div class="card-body">
@@ -88,7 +88,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-danger">Submit</button>
+                <button type="reset" class="btn btn-danger">Clear</button>
 
             </div>
         </form>

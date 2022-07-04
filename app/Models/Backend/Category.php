@@ -5,6 +5,7 @@ namespace App\Models\Backend;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Backend\Subcategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -22,6 +23,10 @@ class Category extends Model
     function updatedBy()
     {
         return $this->belongsTo(User::class,'updated_by','id');
+    }
+    function subcategories()
+    {
+        return $this->hasMany(Subcategory::class,'categories_id','id');
     }
 
 }
